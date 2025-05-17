@@ -362,7 +362,7 @@
 <!-- Firebase Config and Initialization -->
 <script>
   const firebaseConfig = {
-    apiKey: "AIzaSyD_YOUR_VALID_KEY_HERE", // 🔁 Replace with your actual key
+    apiKey: "AIzaSyB_K7v5s06CyJDNGXRvwvrCdb70WOqhM-8",
     authDomain: "early-payout-verification.firebaseapp.com",
     projectId: "early-payout-verification",
     storageBucket: "early-payout-verification.appspot.com",
@@ -377,10 +377,10 @@
   const db = firebase.firestore();
 
   // Setup reCAPTCHA
-  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
     size: "invisible",
     callback: function (response) {
-      console.log("🔒 reCAPTCHA solved", response);
+    console.log("🔒 reCAPTCHA solved", response);
     }
   });
 </script>
