@@ -337,13 +337,12 @@
 
 
 <!-- Firebase App (core SDK) -->
+<!-- ✅ Firebase SDKs (v8 – for plain HTML usage) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
-
-<!-- Firebase Config and Init -->
+<!-- ✅ Firebase Config and Init -->
 <script>
   const firebaseConfig = {
     apiKey: "AIzaSyB_kYvS8s66yJDNGXRwvrCdb70WQhM-8",
@@ -357,13 +356,24 @@
 
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+
+  // Auth & Firestore
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // reCAPTCHA verifier (invisible)
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
+    size: "invisible",
+    callback: function(response) {
+      console.log("🔒 reCAPTCHA solved", response);
+    }
+  });
 </script>
 
-<!-- reCAPTCHA placeholder for invisible verification -->
+<!-- 🔐 reCAPTCHA container -->
 <div id="recaptcha-container"></div>
 
-
-<!-- Main logic for modal + OTP + Firestore (already in this file) -->
+<!-- 🔁 Your App Logic -->
 <script src="calculator.js"></script>
 
 </body>
