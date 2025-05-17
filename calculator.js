@@ -445,7 +445,6 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
 
 
 // 🔐 Unlock Modal + OTP + Firestore Integration
-
 (function () {
   // Show unlock steps
   function showUnlockStep(stepId) {
@@ -480,6 +479,11 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
     callback: function (response) {
       console.log("✅ reCAPTCHA solved", response);
     }
+  });
+
+  // 🔧 Render it!
+  window.recaptchaVerifier.render().then(function(widgetId) {
+    window.recaptchaWidgetId = widgetId;
   });
 
   // Phone → OTP
@@ -523,12 +527,12 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
           phone: phoneNumber,
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
-          .then(() => {
-            console.log("📁 Phone saved to Firestore:", phoneNumber);
-          })
-          .catch(err => {
-            console.error("❌ Firestore error:", err);
-          });
+        .then(() => {
+          console.log("📁 Phone saved to Firestore:", phoneNumber);
+        })
+        .catch(err => {
+          console.error("❌ Firestore error:", err);
+        });
 
         showUnlockStep("unlock-step-success");
         setTimeout(() => {
@@ -542,4 +546,3 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
       });
   });
 })();
-

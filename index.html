@@ -6,6 +6,8 @@
   <title>Early Payout Calculator</title>
   <link rel="stylesheet" href="calculator.css" />
 </head>
+
+
 <body>
   <div class="calculator">
     <h1 class="calculator-title">Early Payout Calculator</h1>
@@ -251,41 +253,44 @@
     </div>
     
 <!-- Overlay + Modal -->
-<!-- Unlock Modal Overlay -->
-<div id="unlock-overlay" class="unlock-overlay" style="display: none;"></div>
 
-<!-- Unlock Modal -->
-<div id="unlock-modal" class="unlock-modal" style="display: none;">
-  <!-- Step 1: Phone Entry -->
-  <div id="unlock-step-phone" class="unlock-step unlock-active">
-    <img src="https://cdn-icons-png.flaticon.com/512/2950/2950655.png" class="unlock-image" />
-    <h2 class="unlock-title">Get Your <span class="highlight">$5,000 Bonus</span></h2>
-    <p class="unlock-text">Enter your phone number to verify and unlock your full offer.</p>
-    <input type="tel" id="unlock-phone-input" placeholder="Phone number" />
-    <button id="unlock-phone-next">Next</button>
-  </div>
+  <!-- 🔐 Modal Overlay -->
+  <div id="unlock-overlay" class="unlock-overlay" style="display: none;"></div>
 
-  <!-- Step 2: OTP Entry -->
-  <div id="unlock-step-otp" class="unlock-step">
-    <img src="https://cdn-icons-png.flaticon.com/512/2810/2810494.png" class="unlock-image" />
-    <h2 class="unlock-title">Enter Code</h2>
-    <p class="unlock-text">Check your phone for a 4-digit code.</p>
-    <div class="unlock-otp-boxes">
-      <input type="text" maxlength="1" class="unlock-otp-input" />
-      <input type="text" maxlength="1" class="unlock-otp-input" />
-      <input type="text" maxlength="1" class="unlock-otp-input" />
-      <input type="text" maxlength="1" class="unlock-otp-input" />
+  <!-- 🔐 Modal -->
+  <div id="unlock-modal" class="unlock-modal" style="display: none;">
+    <!-- Step 1: Phone Entry -->
+    <div id="unlock-step-phone" class="unlock-step unlock-active">
+      <img src="https://cdn-icons-png.flaticon.com/512/2950/2950655.png" class="unlock-image" />
+      <h2 class="unlock-title">Get Your <span class="highlight">$5,000 Bonus</span></h2>
+      <p class="unlock-text">Enter your phone number to verify and unlock your full offer.</p>
+      <input type="tel" id="unlock-phone-input" placeholder="Phone number (e.g. 5615831280)" />
+      <button id="unlock-phone-next">Next</button>
     </div>
-    <button id="unlock-otp-submit">Verify</button>
-  </div>
 
-  <!-- Step 3: Success -->
-  <div id="unlock-step-success" class="unlock-step">
-    <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" class="unlock-image" />
-    <h2 class="unlock-title">🎉 Offer Unlocked!</h2>
-    <p class="unlock-text">Thank you! Your offer is now fully available.</p>
+    <!-- Step 2: OTP -->
+    <div id="unlock-step-otp" class="unlock-step">
+      <img src="https://cdn-icons-png.flaticon.com/512/2810/2810494.png" class="unlock-image" />
+      <h2 class="unlock-title">Enter Code</h2>
+      <p class="unlock-text">Check your phone for a 6-digit code.</p>
+      <div class="unlock-otp-boxes">
+        <input type="text" maxlength="1" class="unlock-otp-input" />
+        <input type="text" maxlength="1" class="unlock-otp-input" />
+        <input type="text" maxlength="1" class="unlock-otp-input" />
+        <input type="text" maxlength="1" class="unlock-otp-input" />
+        <input type="text" maxlength="1" class="unlock-otp-input" />
+        <input type="text" maxlength="1" class="unlock-otp-input" />
+      </div>
+      <button id="unlock-otp-submit">Verify</button>
+    </div>
+
+    <!-- Step 3: Success -->
+    <div id="unlock-step-success" class="unlock-step">
+      <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" class="unlock-image" />
+      <h2 class="unlock-title">🎉 Offer Unlocked!</h2>
+      <p class="unlock-text">Thank you! Your offer is now fully available.</p>
+    </div>
   </div>
-</div>
 
 
     <!-- Hidden adjustments -->
@@ -337,44 +342,41 @@
 
 
 <!-- Firebase App (core SDK) -->
-<!-- ✅ Firebase SDKs (v8 – for plain HTML usage) -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-<!-- ✅ Firebase Config and Init -->
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyB_kYvS8s66yJDNGXRwvrCdb70WQhM-8",
-    authDomain: "early-payout-verification.firebaseapp.com",
-    projectId: "early-payout-verification",
-    storageBucket: "early-payout-verification.appspot.com",
-    messagingSenderId: "565842493122",
-    appId: "1:565842493122:web:1cb9ac892ff10e9073e175b",
-    measurementId: "G-SK6B8GV3S5"
-  };
+ <div id="recaptcha-container"></div>
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  <!-- ✅ Firebase SDKs (v8) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-  // Auth & Firestore
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+  <!-- ✅ Firebase Config -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB_kYvS8s66yJDNGXRwvrCdb70WQhM-8",
+      authDomain: "early-payout-verification.firebaseapp.com",
+      projectId: "early-payout-verification",
+      storageBucket: "early-payout-verification.appspot.com",
+      messagingSenderId: "565842493122",
+      appId: "1:565842493122:web:1cb9ac892ff10e9073e175b",
+      measurementId: "G-SK6B8GV3S5"
+    };
 
-  // reCAPTCHA verifier (invisible)
-  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
-    size: "invisible",
-    callback: function(response) {
-      console.log("🔒 reCAPTCHA solved", response);
-    }
-  });
-</script>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-<!-- 🔐 reCAPTCHA container -->
-<div id="recaptcha-container"></div>
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-<!-- 🔁 Your App Logic -->
-<script src="calculator.js"></script>
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
+      size: "invisible",
+      callback: function (response) {
+        console.log("🔒 reCAPTCHA solved", response);
+      }
+    });
+  </script>
 
+  <!-- ✅ Modal/OTP Logic -->
+  <script src="calculator.js"></script>
 </body>
 </html>
