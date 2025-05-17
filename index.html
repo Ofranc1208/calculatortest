@@ -349,34 +349,46 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<!-- Firebase SDKs (v8) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-  <!-- ✅ Firebase Config -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyB_kYvS8s66yJDNGXRwvrCdb70WQhM-8",
-      authDomain: "early-payout-verification.firebaseapp.com",
-      projectId: "early-payout-verification",
-      storageBucket: "early-payout-verification.appspot.com",
-      messagingSenderId: "565842493122",
-      appId: "1:565842493122:web:1cb9ac892ff10e9073e175b",
-      measurementId: "G-SK6B8GV3S5"
-    };
+    <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+<!-- Firebase Config and Initialization -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD_YOUR_VALID_KEY_HERE", // 🔁 Replace with your actual key
+    authDomain: "early-payout-verification.firebaseapp.com",
+    projectId: "early-payout-verification",
+    storageBucket: "early-payout-verification.appspot.com",
+    messagingSenderId: "565482493122",
+    appId: "1:565482493122:web:1c9a8c92ff10e9073e175b",
+    measurementId: "G-5KGGBV3S15"
+  };
 
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
-      size: "invisible",
-      callback: function (response) {
-        console.log("🔒 reCAPTCHA solved", response);
-      }
-    });
-  </script>
+  // Setup reCAPTCHA
+  window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
+    size: "invisible",
+    callback: function (response) {
+      console.log("🔒 reCAPTCHA solved", response);
+    }
+  });
+</script>
 
-  <!-- ✅ Modal/OTP Logic -->
-  <script src="calculator.js"></script>
+<!-- reCAPTCHA container -->
+<div id="recaptcha-container"></div>
+
+<!-- Your Main JS -->
+<script src="calculator.js"></script>
 </body>
 </html>
