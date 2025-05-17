@@ -1,0 +1,529 @@
+/* ============================== */
+/* Design Tokens                 */
+/* ============================== */
+:root {
+  --color-primary: #09b44d;
+  --color-secondary: #fbc233;
+  --color-dark: #262626;
+  --color-light: #f6f6f6;
+
+  --font-main: 'Inter', sans-serif;
+
+  --gap-xs: 0.25rem;
+  --gap-sm: 0.5rem;
+  --gap-md: 1rem;
+  --gap-lg: 2rem;
+}
+
+/* ============================== */
+/* Global Spacing Utilities      */
+/* ============================== */
+.mt-sm { margin-top: var(--gap-sm); }
+.mt-md { margin-top: var(--gap-md); }
+.mt-lg { margin-top: var(--gap-lg); }
+
+.mb-sm { margin-bottom: var(--gap-sm); }
+.mb-md { margin-bottom: var(--gap-md); }
+.mb-lg { margin-bottom: var(--gap-lg); }
+
+/* ============================== */
+/* General Layout                */
+/* ============================== */
+body {
+  font-family: var(--font-main);
+  background: var(--color-light);
+  padding: 1.5rem;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.calculator {
+  background: #fff;
+  padding: var(--gap-lg);
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ============================== */
+/* Typography & Headings         */
+/* ============================== */
+.calculator-title {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--gap-lg);
+  color: var(--color-dark);
+}
+
+.calculator-label {
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: var(--gap-sm);
+  color: var(--color-dark);
+  display: block;
+}
+
+/* ============================== */
+/* Form Sections                 */
+/* ============================== */
+.calculator-section,
+.lcp-question {
+  margin-bottom: var(--gap-md);
+}
+
+.calculator input[type="number"],
+.calculator input[type="date"] {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-family: var(--font-main);
+}
+
+/* Red border for invalid input */
+input.invalid {
+  border-color: red !important;
+  background-color: #ffecec;
+}
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+  display: none;
+}
+.error-message.visible {
+  display: block;
+}
+
+.hidden-discount {
+  display: none;
+}
+
+.hidden-result {
+  display: none;
+}
+
+
+/* ============================== */
+/* Button Groups & Buttons       */
+/* ============================== */
+.calculator-button-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap-sm);
+}
+
+.calculator-button-group.three-col {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.calculator-button-group button {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+  font-family: var(--font-main);
+  transition: background 0.2s ease;
+  text-align: center;
+  width: 100%;
+}
+
+/* ============================== */
+/* Selected Button States        */
+/* ============================== */
+.calculator-button-group button.selected,
+.calculator-mode-button.selected-mode,
+.calculator-increase-button.selected-increase,
+.calculator-type-button.selected-type {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.calculator-type-button.selected-type {
+  background-color: var(--color-secondary);
+  color: var(--color-dark);
+}
+
+/* ============================== */
+/* Main Action Buttons           */
+/* ============================== */
+#calculator-calculateBtn,
+#main-action-button,
+#lcp-calculateBtn,
+#back-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: var(--gap-sm);
+  transition: background-color 0.2s ease;
+}
+
+#calculator-calculateBtn:hover,
+#main-action-button:hover,
+#lcp-calculateBtn:hover,
+#back-button:hover {
+  background-color: #079e44;
+}
+
+#back-button {
+  background-color: var(--color-secondary);
+  color: var(--color-dark);
+}
+
+/* ============================== */
+/* STEP-2 Action Row             */
+/* ============================== */
+.step2-actions {
+  display: flex;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-sm);
+}
+
+.step2-actions button {
+  width: 50%;
+  padding: 0.75rem;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: var(--font-main);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+#lcp-backBtn {
+  background-color: var(--color-secondary);
+  color: var(--color-dark);
+}
+#lcp-backBtn:hover {
+  background-color: #f2b800;
+}
+#lcp-calculateBtn {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+#lcp-calculateBtn:hover {
+  background-color: #079e44;
+}
+
+/* ============================== */
+/* Calculation Results Display   */
+/* ============================== */
+.calculator-result {
+  margin-top: var(--gap-md);
+  font-size: 16px;
+  color: var(--color-dark);
+}
+.calculator-result p {
+  margin: 0.5rem 0;
+}
+
+/* ============================== */
+/* Lump Sum Payment Styling      */
+/* ============================== */
+.calculator.lumpsum-active #calculator-endDate,
+.calculator.lumpsum-active label[for="calculator-endDate"] {
+  display: none;
+}
+
+/* ============================== */
+/* Step Transitions              */
+/* ============================== */
+#calculator-step-1,
+#calculator-step-2 {
+  animation: fadeIn 0.3s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================== */
+/* Responsive Layout Adjustments */
+/* ============================== */
+@media screen and (min-width: 768px) {
+  .calculator {
+    max-width: 480px;
+  }
+  .calculator-button-group.three-col {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* ============================== */
+/* STEP-3 • Final Offer View     */
+/* ============================== */
+#calculator-step-3 {
+  padding: var(--gap-lg);
+  border: 1px solid #e5e5e5;
+  border-radius: 24px;
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Header: Congratulations */
+.offer-brand {
+  font: 800 28px/1.3 var(--font-main);
+  color: var(--color-primary);
+  text-align: center;
+  margin: 0;
+  margin-bottom: var(--gap-sm);
+}
+
+/* Subtitle below Congratulations */
+.offer-subtitle {
+  font: 16px/1.5 var(--font-main);
+  color: var(--color-dark);
+  text-align: center;
+  margin: 0 0 var(--gap-lg);
+}
+
+/* Offer result cards */
+.offer-list {
+  list-style: none;
+  margin: 0 0 var(--gap-lg);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md); /* Spacing between Minimum / Max / Family */
+}
+
+.offer-item {
+  border-radius: 12px;
+  padding: var(--gap-sm) var(--gap-md);
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}
+
+.offer-item.green-bg {
+  background-color: #dff6e7;
+  border-left: 6px solid var(--color-primary);
+}
+.offer-item.light-bg {
+  background-color: #f8f8f8;
+  border-left: 6px solid var(--color-secondary);
+}
+
+.offer-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.offer-value {
+  color: var(--color-primary);
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.offer-item.family .offer-value {
+  font-size: 18px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Back button on Step 3 */
+.offer-back,
+#step3-backBtn {
+  display: block;
+  width: 140px;
+  margin: var(--gap-lg) auto 0;
+  padding: 0.75rem 0;
+  background: var(--color-secondary);
+  color: var(--color-dark);
+  border: none;
+  border-radius: 999px;
+  font: 600 16px var(--font-main);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.offer-back:hover,
+#step3-backBtn:hover {
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Footer */
+.offer-footer {
+  margin-top: var(--gap-lg);
+  text-align: center;
+  font: 14px/1.4 var(--font-main);
+  color: #666;
+}
+.offer-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.offer-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ========== What Is It Tooltip ========== */
+.what-is-it-label-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.what-is-it-trigger {
+  font-size: 13px;
+  color: #0073e6;
+  text-decoration: none; /* ← remove underline */
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+
+.what-is-it-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9998;
+}
+
+.what-is-it-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 16px 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.what-is-it-label-wrapper {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px; /* ← increased from 6 or 8 to 12 for better spacing */
+  margin-bottom: 6px;
+}
+
+
+.what-is-it-trigger {
+  text-decoration: none;
+}
+
+.what-is-it-trigger:hover {
+  text-decoration: underline;
+}
+
+      /* OTP Step*/
+  /* Unlock Overlay */
+
+/* ============================== */
+/* Unlock Modal - Independent CSS */
+/* ============================== */
+
+.unlock-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+.unlock-modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.unlock-image {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1rem;
+}
+
+.unlock-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.unlock-title .highlight {
+  color: #09b44d;
+}
+.unlock-text {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 1.25rem;
+}
+
+.unlock-modal input {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.unlock-modal button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #09b44d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.unlock-otp-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.unlock-otp-input {
+  width: 40px;
+  height: 48px;
+  font-size: 20px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.unlock-step { display: none; }
+.unlock-step.unlock-active { display: block; }

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Early Payout Calculator</title>
+  <link rel="stylesheet" href="calculator.css" />
+</head>
+<body>
+  <div class="calculator">
+    <h1 class="calculator-title">Early Payout Calculator</h1>
+
+    <!-- Payment-type selection -->
+    <div id="paymentTypeSection" class="calculator-section">
+
+      <div class="what-is-it-label-wrapper">
+        <label class="calculator-label">Type of Payment</label>
+       <span class="what-is-it-trigger" data-definition="This refers to the structure of the payment you will receive, such as guaranteed or life contingent.">( More Info )</span>
+
+      </div>
+
+            
+      <div class="calculator-button-group">
+        <button class="calculator-type-button selected-type" data-type="Guaranteed">Guaranteed</button>
+        <button class="calculator-type-button" data-type="Life Contingent">Life Contingent</button>
+        <button class="calculator-type-button" data-type="Unknown">I Don’t Know</button>
+      </div>
+    </div>
+
+    <!-- STEP 1: Payment details -->
+    <div id="calculator-step-1">
+      <div class="calculator-section">
+
+       <div class="what-is-it-label-wrapper">
+        <label class="calculator-label">Payment Mode</label>
+       <span class="what-is-it-trigger" data-definition="This refers to the structure of the payment you will receive, such as guaranteed or life contingent.">( More Info )</span>
+
+      </div>
+
+        <div class="calculator-button-group">
+          <button class="calculator-mode-button selected-mode" data-mode="Monthly">Monthly</button>
+          <button class="calculator-mode-button" data-mode="Quarterly">Quarterly</button>
+          <button class="calculator-mode-button" data-mode="Semiannually">Semiannually</button>
+          <button class="calculator-mode-button" data-mode="Annually">Annually</button>
+          <button class="calculator-mode-button" data-mode="Lump Sum">Lump Sum</button>
+        </div>
+      </div>
+
+      <div class="calculator-section">
+        
+              
+        <div class="what-is-it-label-wrapper">
+        <label class="calculator-label">Payment Amount ($)</label>
+        <span class="what-is-it-trigger" data-definition="This refers to the structure of the payment you will receive, such as guaranteed or life contingent."> ( More Info ) </span>
+      </div>
+
+        <input 
+        type="number"
+        id="calculator-paymentAmount"
+        placeholder="Enter amount between 100 - 1,000,000"
+        min="100"
+        max="1000000"
+        step="1"
+        />
+
+
+
+      </div>
+
+      <div class="calculator-section">
+
+          <div class="what-is-it-label-wrapper">
+          <label class="calculator-label">Annual Increase (%)</label>
+          <span class="what-is-it-trigger" data-definition="This refers to the structure of the payment you will      receive, such as guaranteed or life contingent."> ( More Info ) </span>
+          </div>
+        
+      
+
+        <div class="calculator-button-group three-col">
+          <button class="calculator-increase-button selected-increase" data-rate="0">0%</button>
+          <button class="calculator-increase-button" data-rate="1">1%</button>
+          <button class="calculator-increase-button" data-rate="2">2%</button>
+          <button class="calculator-increase-button" data-rate="3">3%</button>
+          <button class="calculator-increase-button" data-rate="4">4%</button>
+          <button class="calculator-increase-button" data-rate="5">5%</button>
+          <button class="calculator-increase-button" data-rate="6">6%</button>
+        </div>
+      </div>
+
+     
+
+      <div class="calculator-section">
+
+      <div class="what-is-it-label-wrapper">
+        <label class="calculator-label" for="calculator-startDate">Payment Start Date</label>
+        <span class="what-is-it-trigger" data-definition="This is the date when your payments will begin. Make sure it's after today.">( More Info )</span>
+      </div>
+      <small id="startDate-error" class="error-message"></small>
+      <input type="date" id="calculator-startDate" />
+
+      <p></p>
+
+      <div class="calculator-section">
+      <div class="what-is-it-label-wrapper">
+      <label class="calculator-label" for="calculator-endDate">Payment End Date</label>
+       <span class="what-is-it-trigger" data-definition="This is the date when your payments will stop. It must be at least 6 months after the start date.">( More Info )</span>
+      </div>
+      <input type="date" id="calculator-endDate" />
+      <small id="endDate-error" class="error-message"></small>
+      </div>
+
+
+
+        <!-- Main Discount Rate ? Base Rate change here  -->
+
+
+      </div>
+            <div class="calculator-section hidden-discount">
+            <label class="calculator-label" for="calculator-discountRate">Discount Rate (%)</label>
+            <input 
+                type="number" 
+                id="calculator-discountRate" 
+                value="8.00" 
+                step="0.01"
+            />
+      </div>
+
+
+      <button id="main-action-button">Calculate</button>
+
+      <!-- hidden test value -->
+        <div class="calculator-result hidden-result" id="calculator-result">
+                <p id="npvResult">NPV Result: $0.00</p>
+                <p id="totalPayments">Total Payments: 0</p>
+            </div>
+
+    </div>
+
+    <!-- STEP 2: Life-Contingent profile -->
+    <div id="calculator-step-2" style="display:none">
+      <div class="lcp-question">
+        <label class="calculator-label">Age</label>
+        <div class="calculator-button-group three-col">
+          <button data-key="age-18-25">18–25</button>
+          <button data-key="age-26-35">26–35</button>
+          <button data-key="age-36-45">36–45</button>
+          <button data-key="age-46-50">46–50</button>
+          <button data-key="age-51-56">51–56</button>
+          <button data-key="age-57-65">57–65</button>
+        </div>
+      </div>
+
+      <div class="lcp-question">
+        <label class="calculator-label">Gender</label>
+        <div class="calculator-button-group">
+          <button data-key="gender-male">Male</button>
+          <button data-key="gender-female">Female</button>
+        </div>
+      </div>
+
+      <div class="lcp-question">
+        <label class="calculator-label">Body Frame</label>
+        <div class="calculator-button-group">
+          <button data-key="build-small">Small Build</button>
+          <button data-key="build-medium">Medium Build</button>
+          <button data-key="build-tall">Tall Build</button>
+        </div>
+      </div>
+
+      <div class="lcp-question">
+        <label class="calculator-label">Weight Overview</label>
+        <div class="calculator-button-group">
+          <button data-key="underweight">Underweight</button>
+          <button data-key="normal">Normal Weight</button>
+          <button data-key="overweight">Overweight</button>
+          <button data-key="obese">Obesity</button>
+          <button data-key="severe-obese">Severe Obesity</button>
+        </div>
+      </div>
+
+      <div class="lcp-question">
+        <label class="calculator-label">Do You Smoke?</label>
+        <div class="calculator-button-group">
+          <button data-key="smoke-yes">Yes</button>
+          <button data-key="smoke-no">No</button>
+        </div>
+      </div>
+
+      <div class="lcp-question">
+        <label class="calculator-label">Health Profile</label>
+        <div class="calculator-button-group">
+          <button data-key="health-great">Great</button>
+          <button data-key="health-normal">Normal</button>
+          <button data-key="health-fair">Fair</button>
+          <button data-key="health-belowfair">Below Fair</button>
+        </div>
+      </div>
+
+      <div class="lcp-question">
+        <label class="calculator-label">Cardiac Health</label>
+        <div class="calculator-button-group">
+          <button data-key="cardiac-normal">Normal</button>
+          <button data-key="cardiac-medicated">Medicated</button>
+          <button data-key="cardiac-high">High</button>
+          <button data-key="cardiac-unsure">Not Sure</button>
+        </div>
+      </div>
+
+      <!-- NPV output for Life Contingent -->
+      <div class="calculator-result" id="lcp-result">
+      <p id="lcp-npv-result" class="hidden-result">Net Present Value: $0.00</p>
+
+      </div>
+
+      <div class="step2-actions">
+        <button id="lcp-backBtn">Back</button>
+        <button id="lcp-calculateBtn">Calculate</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Offer sheet -->
+    <div id="calculator-step-3" style="display:none">
+            <h1 class="offer-brand">Congratulations</h1>
+            <p class="offer-subtitle">
+            Here’s your Early Payout offer based on the information provided. Funding in as little as 30 days.
+            </p>
+
+            <ul id="extended-payout-results" class="offer-list">
+            <li class="offer-item">
+                <span class="offer-label">Minimum Offer</span>
+                <span id="calculator-minPayout" class="offer-value">$0.00</span>
+            </li>
+            <li class="offer-item">
+                <span class="offer-label">Maximum Offer</span>
+                <span id="calculator-maxPayout" class="offer-value">$0.00</span>
+            </li>
+            <li class="offer-item family">
+                <span class="offer-label">Family Protection</span>
+                <span id="calculator-familyProtection" class="offer-value">$0.00</span>
+            </li>
+            </ul>
+
+            <button id="step3-backBtn" class="offer-back">Back</button>
+
+            <div class="offer-footer">
+            <strong>SmarterPayouts LLC</strong><br>
+            123 Main Street, Suite 200, Dallas TX 75201<br>
+            <a href="tel:+18885551234">1-888-555-1234</a> •
+            <a href="mailto:info@smarterpayouts.com">info@smarterpayouts.com</a>
+    </div>
+    </div>
+    
+<!-- Overlay + Modal -->
+<!-- Unlock Modal Overlay -->
+<div id="unlock-overlay" class="unlock-overlay" style="display: none;"></div>
+
+<!-- Unlock Modal -->
+<div id="unlock-modal" class="unlock-modal" style="display: none;">
+  <!-- Step 1: Phone Entry -->
+  <div id="unlock-step-phone" class="unlock-step unlock-active">
+    <img src="https://cdn-icons-png.flaticon.com/512/2950/2950655.png" class="unlock-image" />
+    <h2 class="unlock-title">Get Your <span class="highlight">$5,000 Bonus</span></h2>
+    <p class="unlock-text">Enter your phone number to verify and unlock your full offer.</p>
+    <input type="tel" id="unlock-phone-input" placeholder="Phone number" />
+    <button id="unlock-phone-next">Next</button>
+  </div>
+
+  <!-- Step 2: OTP Entry -->
+  <div id="unlock-step-otp" class="unlock-step">
+    <img src="https://cdn-icons-png.flaticon.com/512/2810/2810494.png" class="unlock-image" />
+    <h2 class="unlock-title">Enter Code</h2>
+    <p class="unlock-text">Check your phone for a 4-digit code.</p>
+    <div class="unlock-otp-boxes">
+      <input type="text" maxlength="1" class="unlock-otp-input" />
+      <input type="text" maxlength="1" class="unlock-otp-input" />
+      <input type="text" maxlength="1" class="unlock-otp-input" />
+      <input type="text" maxlength="1" class="unlock-otp-input" />
+    </div>
+    <button id="unlock-otp-submit">Verify</button>
+  </div>
+
+  <!-- Step 3: Success -->
+  <div id="unlock-step-success" class="unlock-step">
+    <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" class="unlock-image" />
+    <h2 class="unlock-title">🎉 Offer Unlocked!</h2>
+    <p class="unlock-text">Thank you! Your offer is now fully available.</p>
+  </div>
+</div>
+
+
+    <!-- Hidden adjustments -->
+
+
+    <div id="adjustment-config" style="display:none">
+
+      <div data-key="underweight"   data-adjustment="0.01"></div>
+      <div data-key="normal"        data-adjustment="0"></div>
+      <div data-key="overweight"    data-adjustment="0.02"></div>
+      <div data-key="obese"         data-adjustment="0.035"></div>
+      <div data-key="severe-obese"  data-adjustment="0.05"></div>
+
+      <div data-key="gender-male"   data-adjustment="0"></div>
+      <div data-key="gender-female" data-adjustment="-0.01"></div>
+
+      <div data-key="build-small"   data-adjustment="-0.005"></div>
+      <div data-key="build-medium"  data-adjustment="0"></div>
+      <div data-key="build-tall"    data-adjustment="0.005"></div>
+
+      <div data-key="smoke-yes"     data-adjustment="0.015"></div>
+      <div data-key="smoke-no"      data-adjustment="0"></div>
+
+      <div data-key="health-great"     data-adjustment="-0.01"></div>
+      <div data-key="health-normal"    data-adjustment="0"></div>
+      <div data-key="health-fair"      data-adjustment="0.015"></div>
+      <div data-key="health-belowfair" data-adjustment="0.025"></div>
+
+      <div data-key="cardiac-normal"    data-adjustment="0"></div>
+      <div data-key="cardiac-medicated" data-adjustment="0.01"></div>
+      <div data-key="cardiac-high"      data-adjustment="0.02"></div>
+      <div data-key="cardiac-unsure"    data-adjustment="0.015"></div>
+
+      <div data-key="age-18-25" data-adjustment="0"></div>
+      <div data-key="age-26-35" data-adjustment="0.005"></div>
+      <div data-key="age-36-45" data-adjustment="0.01"></div>
+      <div data-key="age-46-50" data-adjustment="0.015"></div>
+      <div data-key="age-51-56" data-adjustment="0.02"></div>
+      <div data-key="age-57-65" data-adjustment="0.03"></div>
+
+      <div data-key="minimum-payout" data-adjustment="4500" data-rate-spread="0.03"></div>
+      <div data-key="maximum-payout" data-adjustment="5500" data-rate-spread="0.02"></div>
+
+      <div data-key="family-protection-guaranteed" data-adjustment="25000"></div>
+
+      <div data-key="family-protection-discount-rate" data-adjustment="0.055"></div>
+    </div>
+  </div>
+
+
+<!-- Firebase App (core SDK) -->
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+
+<!-- Firebase Config and Init -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyB_kYvS8s66yJDNGXRwvrCdb70WQhM-8",
+    authDomain: "early-payout-verification.firebaseapp.com",
+    projectId: "early-payout-verification",
+    storageBucket: "early-payout-verification.appspot.com",
+    messagingSenderId: "565842493122",
+    appId: "1:565842493122:web:1cb9ac892ff10e9073e175b",
+    measurementId: "G-SK6B8GV3S5"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<!-- reCAPTCHA placeholder for invisible verification -->
+<div id="recaptcha-container" style="display: none;"></div>
+
+<!-- Main logic for modal + OTP + Firestore (already in this file) -->
+<script src="calculator.js"></script>
+
+</body>
+</html>
