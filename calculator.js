@@ -442,6 +442,8 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
     }, 10);
   });
 });
+
+
 // 🔐 Unlock Modal + OTP + Firestore Integration
 (function () {
   // Show unlock steps
@@ -480,7 +482,7 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
   });
 
   // 🔧 Render it!
-  window.recaptchaVerifier.render().then(function(widgetId) {
+  window.recaptchaVerifier.render().then(function (widgetId) {
     window.recaptchaWidgetId = widgetId;
   });
 
@@ -498,7 +500,7 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
       return;
     }
 
-    // Send OTP via Firebase
+    // Send OTP
     auth.signInWithPhoneNumber(fullPhone, window.recaptchaVerifier)
       .then(result => {
         window.confirmationResult = result;
@@ -507,7 +509,7 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
       })
       .catch(error => {
         console.error("❌ OTP send failed:", error);
-        alert("Failed to send OTP. Check console for details.");
+        alert("Failed to send OTP: " + error.message);
       });
   });
 
@@ -530,12 +532,12 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
           phone: phoneNumber,
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
-        .then(() => {
-          console.log("📁 Phone saved to Firestore:", phoneNumber);
-        })
-        .catch(err => {
-          console.error("❌ Firestore error:", err);
-        });
+          .then(() => {
+            console.log("📁 Phone saved to Firestore:", phoneNumber);
+          })
+          .catch(err => {
+            console.error("❌ Firestore error:", err);
+          });
 
         showUnlockStep("unlock-step-success");
         setTimeout(() => {
@@ -545,7 +547,7 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
       })
       .catch(error => {
         console.error("❌ OTP invalid:", error);
-        alert("Incorrect OTP. Please try again.");
+        alert("Incorrect OTP. Please try again. " + error.message);
       });
   });
 })(); // ✅ Cleanly closed the IIFE
