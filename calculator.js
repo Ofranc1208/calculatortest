@@ -442,8 +442,6 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
     }, 10);
   });
 });
-
-
 // 🔐 Unlock Modal + OTP + Firestore Integration
 (function () {
   // Show unlock steps
@@ -486,32 +484,32 @@ document.querySelectorAll('.what-is-it-trigger').forEach(function (trigger) {
     window.recaptchaWidgetId = widgetId;
   });
 
-// Phone → OTP
-document.getElementById("unlock-phone-next").addEventListener("click", () => {
-  const phone = document.getElementById("unlock-phone-input").value.trim();
-  let fullPhone = phone;
+  // Phone → OTP
+  document.getElementById("unlock-phone-next").addEventListener("click", () => {
+    const phone = document.getElementById("unlock-phone-input").value.trim();
+    let fullPhone = phone;
 
-  if (phone.startsWith("+1") && phone.length === 12) {
-    fullPhone = phone;
-  } else if (/^\d{10}$/.test(phone)) {
-    fullPhone = "+1" + phone;
-  } else {
-    alert("Please enter a valid phone number (e.g., +15615551234 or 5615551234).");
-    return;
-  }
+    if (phone.startsWith("+1") && phone.length === 12) {
+      fullPhone = phone;
+    } else if (/^\d{10}$/.test(phone)) {
+      fullPhone = "+1" + phone;
+    } else {
+      alert("Please enter a valid phone number (e.g., +15615551234 or 5615551234).");
+      return;
+    }
 
-  // Send OTP via Firebase
-  auth.signInWithPhoneNumber(fullPhone, window.recaptchaVerifier)
-    .then(result => {
-      window.confirmationResult = result;
-      showUnlockStep("unlock-step-otp");
-      console.log("📨 OTP sent to", fullPhone);
-    })
-    .catch(error => {
-      console.error("❌ OTP send failed:", error);
-      alert("Failed to send OTP. Check console for details.");
-    });
-});
+    // Send OTP via Firebase
+    auth.signInWithPhoneNumber(fullPhone, window.recaptchaVerifier)
+      .then(result => {
+        window.confirmationResult = result;
+        showUnlockStep("unlock-step-otp");
+        console.log("📨 OTP sent to", fullPhone);
+      })
+      .catch(error => {
+        console.error("❌ OTP send failed:", error);
+        alert("Failed to send OTP. Check console for details.");
+      });
+  });
 
   // OTP → Success + Firestore
   document.getElementById("unlock-otp-submit").addEventListener("click", () => {
@@ -550,4 +548,4 @@ document.getElementById("unlock-phone-next").addEventListener("click", () => {
         alert("Incorrect OTP. Please try again.");
       });
   });
-})();
+})(); // ✅ Cleanly closed the IIFE
